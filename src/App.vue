@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="container">
+    <h1 class="text-center">CRUD Vue</h1>
+    <hr />
+
+    <div class="row">
+      <pet-list />
+      <create-form v-if="!isInEditMode" />
+      <update-form v-if="isInEditMode" />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import { computed } from "vue";
+
+import PetList from "./components/pets/PetList.vue";
+import CreateForm from "./components/pets/CreateForm.vue";
+import UpdateForm from "./components/pets/UpdateForm.vue";
+
+import { useStore } from "vuex";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    PetList,
+    CreateForm,
+    UpdateForm,
+  },
+  setup() {
+    const store = useStore();
+
+    const isInEditMode = computed(() => {
+      console.log(store.state.petModule.isPetFormInEdit);
+      return store.state.petModule.isPetFormInEdit;
+    });
+
+    return {
+      isInEditMode,
+    };
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

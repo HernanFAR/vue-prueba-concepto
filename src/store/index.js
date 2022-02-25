@@ -1,9 +1,8 @@
 import { createStore } from "vuex";
+import petModule from "./modules/petModule";
 
 export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+  modules: {
+    petModule,
+  },
 });
